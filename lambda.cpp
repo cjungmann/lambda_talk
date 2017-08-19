@@ -1,4 +1,4 @@
-// -*- compile-command: "g++ -std=c++11 -ggdb -Wno-pmf-conversions -Wall -Werror -Weffc++ -pedantic -o lambda lambda.cpp" -*-
+// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o lambda lambda.cpp" -*-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -77,19 +77,22 @@ public:
 template <typename Func>
 class Compar_Concrete : public Compar_Base
 {
-   Func &m_f;
+   Func m_f;
 public:
-   Compar_Concrete(Func f) : m_f(f) { }
-   // virtual ~Compar_Concrete()       { }
+   /**
+    * Constructor must use a reference parameter so we don't get a copy
+    * of the lambda function, which would have an invalid closure.
+    */
+   Compar_Concrete(Func &f) : m_f(f) { }
+
+   virtual ~Compar_Concrete()       { }
+   Compar_Concrete(const Compar_Concrete&) = delete;
+   Compar_Concrete& operator=(const Compar_Concrete&) = delete;
+
    virtual int comp(const void* left, const void* right) const
    {
       return m_f(left,right);
    }
-
-   // EFFC_2(Compar_Concrete);
-
-   // Compar_Concrete(const Compar_Concrete&) = delete;
-   // Compar_Concrete& operator=(const Compar_Concrete&) = delete;
 
 };
 
@@ -102,9 +105,6 @@ void qsort_l(void *base, size_t member_count, size_t member_size, Func f)
    Compar_Concrete<Func> comp(f);
    qsort_r(base, member_count, member_size, Compar_Base::compare, &comp);
 }
-
-
-
 
 
 /**
@@ -134,7 +134,7 @@ void sort_descending(int* intlist, int count)
 
    qsort_l(intlist, count, sizeof(int), f);
 
-   // printf("\nIt took %d tests to complete the sort.\n", testcount);
+   printf("\nIt took %d tests to complete the sort.\n", testcount);
 }
 
 
