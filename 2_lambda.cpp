@@ -1,4 +1,4 @@
-// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o lambda lambda.cpp" -*-
+// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o 2_lambda 2_lambda.cpp" -*-
 
 #include <stdlib.h>
 #include <stdio.h>
