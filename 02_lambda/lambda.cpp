@@ -1,4 +1,4 @@
-// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o 2_lambda 2_lambda.cpp" -*-
+// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o lambda lambda.cpp" -*-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -77,7 +77,7 @@ public:
 template <typename Func>
 class Compar_Concrete : public Compar_Base
 {
-   Func m_f;
+   Func &m_f;
 public:
    /**
     * Constructor must use a reference parameter so we don't get a copy

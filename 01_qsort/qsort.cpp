@@ -1,4 +1,4 @@
-// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o 01_qsort 01_qsort.cpp" -*-
+// -*- compile-command: "g++ -std=c++11 -Wno-pmf-conversions -Wall -Werror -pedantic -Weffc++ -ggdb -o qsort qsort.cpp" -*-
 
 #include <stdlib.h>   // for qsort
 #include <string.h>   // for strcasecmp
