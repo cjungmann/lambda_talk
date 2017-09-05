@@ -83,11 +83,7 @@ void print_ints(const int* arr, int count)
    putchar('\n');
 }
 
-#define EFFC_2(X) X(const X&) = delete; X& operator=(const X&) = delete
-
-/**
- * Use for parameter definition.
- */
+/** Interface class that will be used for parameter declaration. */
 class Compar_Base
 {
 public:
@@ -101,9 +97,7 @@ public:
    }
 };
 
-/**
- * Base class for implementations
- */
+/** Template class derived from interface class for implementations. */
 template <typename Func>
 class Compar_Concrete : public Compar_Base
 {
