@@ -13,29 +13,38 @@ int compar(const void* left, const void* right)
                      *static_cast<const char* const*>(right));
 }
 
-void sort(char** strings, int count)
+const char** copy_array(const char**target, const char* const* source, int count)
 {
-   comps_made = 0;
-
-   // Make copy of strings array
-   char **arr = new char*[count];
    for (int i=0; i<count; ++i)
-      arr[i] = strings[i];
+      target[i] = source[i];
 
-   qsort(arr, count, sizeof(char*), compar);
+   return target;
+}
 
-   puts("Array after sorting:\n");
+void print_array(const char**array, int count)
+{
    for (int i=0; i<count; ++i)
    {
       if (i)
          putchar(' ');
-
-      fputs(arr[i], stdout);
+      fputs(array[i], stdout);
    }
-
    putchar('\n');
+}
 
-   printf("Comparisons made: %d\n", comps_made);
+void sort(const char* const* strings, int count)
+{
+   // Make copy of strings array
+   const char **arr = copy_array(new const char*[count], strings, count);
+
+   qsort(arr, count, sizeof(char*), compar);
+
+   puts("Sentence after sorting:\n");
+   print_array(arr, count);
+
+   printf("\n%d comparisons made to sort %d elements.\n", comps_made, count);
+
+   delete [] arr;
 }
 
 int main(int argc, char** argv)
