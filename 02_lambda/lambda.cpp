@@ -3,23 +3,51 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * Fills an array with a set of randomized, unduplicated values.
+ *
+ * @param arr An array of integers in which to store random values.
+ * @param count Number of elements in the integer array.
+ */
+void randomize_ints(int *arr, int count)
+{
+   int val;
+   bool is_unique;
+   for (int i=0; i<count; ++i)
+   {
+      do
+      {
+         val = rand() % count + 1;
+
+         // Check that the value has not been used:
+         is_unique = true;
+         for (int j=0; j<i; ++j)
+            if (arr[j]==val)
+            {
+               is_unique = false;
+               break;
+            }
+      } while (!is_unique);
+
+      arr[i] = val;
+   }
+}
 
 /**
- * Creates a randomized list of unique integers.
+ * Fills an array with a set of randomized, unduplicated values.
  *
  * @param arr An array of integers in which to store random values.
  * @param count Number of elements in the integer array.
  *
  * This function uses a lambda function to detect if a given integer
  * has already been used.
-
  */
-void randomize_ints(int* arr, int count)
+void randomize_ints_lambda(int* arr, int count)
 {
    // for-loop index variable must be available to lambda
    int i;
 
-   auto is_unique = [&arr, &count, &i](int val) -> int
+   auto is_unique = [&arr, &count, &i](int val) -> bool
    {
       for (int j=0; j<i; ++j)
          if (arr[j]==val)
@@ -31,8 +59,10 @@ void randomize_ints(int* arr, int count)
    int val;
    for (i=0; i<count; ++i)
    {
+      // Keep getting random values until we find an unused value.
       while(!is_unique(val=rand()%count+1))
          ;
+
       arr[i] = val;
    }
 }
@@ -114,7 +144,9 @@ void sort_ascending(int* intlist, int count)
 {
    auto f = [](const void* left, const void* right) -> int
    {
-      return *static_cast<const int*>(left) - *static_cast<const int*>(right);
+      int l = *static_cast<const int*>(left);
+      int r = *static_cast<const int*>(right);
+      return l - r;
    };
 
    qsort_l(intlist, count, sizeof(int), f);
@@ -126,10 +158,12 @@ void sort_ascending(int* intlist, int count)
 void sort_descending(int* intlist, int count)
 {
    int testcount = 0;
-   auto f = [&testcount](const void* left, const void* right) mutable -> int
+   auto f = [&testcount](const void* left, const void* right) -> int
    {
       ++testcount;
-      return *static_cast<const int*>(right) - *static_cast<const int*>(left);
+      int l = *static_cast<const int*>(left);
+      int r = *static_cast<const int*>(right);
+      return r - l;
    };
 
    qsort_l(intlist, count, sizeof(int), f);
