@@ -35,7 +35,7 @@ void tally_list(void)
    int tally = 0;
    const char** arr = list;
    bool postfix = false;
-   int curint, len;
+   int curint;
    char curop;
 
    auto pre_print = [&tally, &postfix](void)
@@ -50,14 +50,14 @@ void tally_list(void)
          printf("%6d", tally);
    };
 
-   while (*arr)
+   auto parse_current_position = [&arr, &postfix, &curint, &curop](void)
    {
-      const char *str = *arr;
-
-      len = strlen(str);
       curop = '\0';
-      
+
+      const char *str = *arr;
+      int len = strlen(str);
       postfix = isdigit(str[0]);
+      
       if (postfix)
       {
          curint = atoi(str);
@@ -68,6 +68,11 @@ void tally_list(void)
          curint = atoi(&str[1]);
          curop = *str;
       }
+   };
+
+   while (*arr)
+   {
+      parse_current_position();
 
       switch(curop)
       {
