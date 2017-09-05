@@ -1,0 +1,2 @@
+#!/bin/bash
+gnome-terminal --window-with-profile=Project -e "emacs +33 ../02_dupcode/dupcode.cpp +33 ../02_dupcode/dupcode_lambda.cpp"
