@@ -109,6 +109,7 @@ public:
     */
    Compar_Concrete(Func &f) : m_f(f) { }
 
+   // To dispell effc++ warnings:
    virtual ~Compar_Concrete()       { }
    Compar_Concrete(const Compar_Concrete&) = delete;
    Compar_Concrete& operator=(const Compar_Concrete&) = delete;
