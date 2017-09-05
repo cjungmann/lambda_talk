@@ -1,2 +1,2 @@
 #!/bin/bash
-gnome-terminal --window-with-profile=Project -e "emacs +91 ../03_node/lambda.js"
+gnome-terminal --window-with-profile=Project -e "emacs +91 ../01_node/lambda.js"
