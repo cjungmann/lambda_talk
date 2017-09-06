@@ -126,7 +126,7 @@ function escape_xml(str)
    var re_xml = /[<>&\'\"]/g;
 
    // Reassigning global identifier to internal unnamed function
-   escape_xml = function(str) { return str.replace(re_xml, cb); };
+   escape_xml = function(str) { return str.replace(re_xml, conv); };
 
    // Calling reassigned anonymous function to complete first call.
    return escape_xml(str);
